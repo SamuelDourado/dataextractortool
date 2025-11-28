@@ -42,9 +42,9 @@ class Inputs:
     def from_dict(cls, data: dict) -> "Inputs":
         return cls(
             git=GitInputs(
-                git_url=data.get("git_url", ""),
+                git_url=data.get("git_url", "") or "",
                 git_version=data.get("git_version", "") or "",
-                git_type=data.get("git_type", ""),
+                git_type=data.get("git_type", "") or "",
                 git_token=data.get("git_token", "") or "",
                 git_projects=data.get("git_projects", []) or [],
             ),
