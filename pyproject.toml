@@ -10,7 +10,8 @@ requires-python = ">=3.12"
 dependencies = [
     "python-gitlab (>=7.0.0,<8.0.0)",
     "tqdm (>=4.67.1,<5.0.0)",
-    "python-certifi-win32 (>=1.6.1,<2.0.0)"
+    "python-certifi-win32 (>=1.6.1,<2.0.0)",
+    "pyyaml (>=6.0.0,<7.0.0)"
 ]
 
 [tool.poetry]
