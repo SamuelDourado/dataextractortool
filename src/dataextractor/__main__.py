@@ -1,5 +1,5 @@
 from dataextractor.cli import CliHandler
-
+from dataextractor.core.app import main as app_main
 
 def main():
     cli = CliHandler()
@@ -9,6 +9,7 @@ def main():
     elif args.j:
         print("jira")
 
+    app_main()
 
 if __name__ == "__main__":
     main()
