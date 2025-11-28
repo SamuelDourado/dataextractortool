@@ -5,6 +5,7 @@ __pycache__/
 # Environment & tooling
 .env
 .venv/
+.env.yaml
 
 # VS Code
 .vscode/

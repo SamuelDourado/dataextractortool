@@ -8,7 +8,7 @@ def main():
     cli = CliHandler()
     args = cli.parse()
 
-    settings = Settings.from_env()
+    settings = Settings.load()
 
     if args.g:
         print("git")

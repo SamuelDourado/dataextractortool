@@ -1,7 +1,20 @@
 from dataclasses import dataclass, field
 from pathlib import Path
+from typing import ClassVar
 
 import yaml
+
+
+def _find_project_root() -> Path:
+    """Find the project root by looking for pyproject.toml."""
+    current = Path(__file__).resolve().parent
+    for parent in [current, *current.parents]:
+        if (parent / "pyproject.toml").exists():
+            return parent
+    return Path.cwd()
+
+
+PROJECT_ROOT: Path = _find_project_root()
 
 
 @dataclass
@@ -68,10 +81,17 @@ class Outputs:
 class EnvConfig:
     inputs: Inputs = field(default_factory=Inputs)
     outputs: Outputs = field(default_factory=Outputs)
+    DEFAULT_CONFIG_NAME: ClassVar[str] = ".env.yaml"
 
     @classmethod
-    def load(cls, path: str | Path = ".env.yaml") -> "EnvConfig":
-        path = Path(path)
+    def load(cls, path: str | Path | None = None) -> "EnvConfig":
+        if path is None:
+            path = PROJECT_ROOT / cls.DEFAULT_CONFIG_NAME
+        else:
+            path = Path(path)
+            if not path.is_absolute():
+                path = PROJECT_ROOT / path
+
         if not path.exists():
             raise FileNotFoundError(f"Config file not found: {path}")
 

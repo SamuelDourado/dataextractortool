@@ -14,8 +14,8 @@ class GitLabProjectRepository(ProjectRepository):
     def client(self) -> gitlab.Gitlab:
         if self._client is None:
             self._client = gitlab.Gitlab(
-                self.settings.gitlab.url,
-                private_token=self.settings.gitlab.token,
+                self.settings.git.url,
+                private_token=self.settings.git.token,
             )
             self._client.auth()
         return self._client
