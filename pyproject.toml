@@ -13,6 +13,9 @@ dependencies = [
 [tool.poetry]
 packages = [{include = "dataextractor", from = "src"}]
 
+[project.scripts]
+dataextractor = "dataextractor.__main__:main"
+
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
@@ -29,4 +32,5 @@ disable = [
   "C0114", # missing-module-docstring
   "C0115", # missing-class-docstring
   "C0116", # missing-function-docstring
+  "R0903", # too-few-public-methods
 ]
