@@ -36,6 +36,7 @@ class TestGitLabProjectRepository:
         mock_gitlab_class.assert_called_once_with(
             "https://gitlab.example.com",
             private_token="test-token",
+            timeout=30,
         )
         mock_client.auth.assert_called_once()
         assert client is mock_client

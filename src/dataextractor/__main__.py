@@ -1,3 +1,9 @@
+# Enable Windows certificate store for SSL (import automatically patches certifi)
+try:
+    import certifi_win32  # noqa: F401  pylint: disable=unused-import
+except ImportError:
+    pass  # Not on Windows or package not installed
+
 from dataextractor.cli import CliHandler
 from dataextractor.config import Settings
 from dataextractor.core.use_cases import ListProjectsUseCase

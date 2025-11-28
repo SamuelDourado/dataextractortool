@@ -6,6 +6,8 @@ from dataextractor.core.interfaces import ProjectRepository
 
 
 class GitLabProjectRepository(ProjectRepository):
+    DEFAULT_TIMEOUT = 30  # seconds
+
     def __init__(self, settings: Settings):
         self.settings = settings
         self._client: gitlab.Gitlab | None = None
@@ -16,12 +18,15 @@ class GitLabProjectRepository(ProjectRepository):
             self._client = gitlab.Gitlab(
                 self.settings.git.url,
                 private_token=self.settings.git.token,
+                timeout=self.DEFAULT_TIMEOUT,
             )
             self._client.auth()
         return self._client
 
     def get_all_projects(self) -> list[ProjectInfo]:
-        projects = self.client.projects.list(iterator=True)
+        # membership=True: only projects the user is a member of
+        # This is much faster than fetching all public projects
+        projects = self.client.projects.list(membership=True, iterator=True)
         return [self._to_project_info(p) for p in projects]
 
     def _to_project_info(self, project) -> ProjectInfo:
